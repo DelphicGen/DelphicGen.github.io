@@ -40,7 +40,9 @@ else
     { url: '/images/arrow.png', revision: '1' },
     { url: '/images/landing-page-1.png', revision: '1' },
     { url: '/manifest.json', revision: '1' }
-]);
+], {
+  ignoreUrlParametersMatching: [/.*/]
+});
 
 workbox.routing.registerRoute(
   new RegExp('/pages/'),

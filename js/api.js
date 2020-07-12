@@ -147,44 +147,46 @@
         if ('caches' in window) {
             caches.match(`${baseUrl}/competitions/${idParam}/standings`)
             .then(response => {
-                return response.json();
+                if(response) return response.json();
             })
             .then(data => {
-                let standingsHTML = `
-                        <tr>
-                            <th>R</th>
-                            <th>Team</th>
-                            <th>P</th>
-                            <th>W</th>
-                            <th>D</th>
-                            <th>L</th>
-                            <th>GF</th>
-                            <th>GA</th>
-                            <th>GD</th>
-                            <th>Pts</th>
-                        </tr>
-                    `
-                    data.standings[0].table.forEach(standing => {
-                        standingsHTML += `
+                if(data) {
+                    let standingsHTML = `
                             <tr>
-                                <th>${standing.position}</th>
-                                <th>
-                                    <img class="crest" src="${standing.team.crestUrl}" alt="${standing.team.name}'s crest" />
-                                    ${standing.team.name}
-                                </th>
-                                <th>${standing.playedGames}</th>
-                                <th>${standing.won}</th>
-                                <th>${standing.draw}</th>
-                                <th>${standing.lost}</th>
-                                <th>${standing.goalsFor}</th>
-                                <th>${standing.goalsAgainst}</th>
-                                <th>${standing.goalDifference}</th>
-                                <th>${standing.points}</th>
+                                <th>R</th>
+                                <th>Team</th>
+                                <th>P</th>
+                                <th>W</th>
+                                <th>D</th>
+                                <th>L</th>
+                                <th>GF</th>
+                                <th>GA</th>
+                                <th>GD</th>
+                                <th>Pts</th>
                             </tr>
                         `
-                    })
+                        data.standings[0].table.forEach(standing => {
+                            standingsHTML += `
+                                <tr>
+                                    <th>${standing.position}</th>
+                                    <th>
+                                        <img class="crest" src="${standing.team.crestUrl}" alt="${standing.team.name}'s crest" />
+                                        ${standing.team.name}
+                                    </th>
+                                    <th>${standing.playedGames}</th>
+                                    <th>${standing.won}</th>
+                                    <th>${standing.draw}</th>
+                                    <th>${standing.lost}</th>
+                                    <th>${standing.goalsFor}</th>
+                                    <th>${standing.goalsAgainst}</th>
+                                    <th>${standing.goalDifference}</th>
+                                    <th>${standing.points}</th>
+                                </tr>
+                            `
+                        })
 
-                    $('.standings').html(standingsHTML);
+                        $('.standings').html(standingsHTML);
+                }
             })
         }
             fetch(`${baseUrl}/competitions/${idParam}/standings`, {

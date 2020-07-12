@@ -9,7 +9,8 @@ $(document).ready(function () {
             getMatches(page);
         } else if (page === "saved") {
             getSavedMatches();
-        } else if (page === 'league') {
+        } 
+        else if (url.includes('league')) {
             getLeague();
         }
     }
